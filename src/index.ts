@@ -678,7 +678,7 @@ class FirefliesServer {
   /**
    * Handles tool call requests
    */
-  private async handleToolCall(name: string, args: any): Promise<{ toolResult: CallToolResult }> {
+  private async handleToolCall(name: string, args: any): Promise<CallToolResult> {
     try {
       switch (name) {
         case "fireflies_get_transcripts": {
@@ -715,12 +715,10 @@ To retrieve more transcripts, you can:
             }
             
             return {
-              toolResult: {
-                content: [{
-                  type: "text",
-                  text: resultText
-                }]
-              }
+              content: [{
+                type: "text",
+                text: resultText
+              }]
             };
           } catch (error) {
             process.stderr.write(`Error in fireflies_get_transcripts: ${error instanceof Error ? error.message : String(error)}\n`);
@@ -747,12 +745,10 @@ To retrieve more transcripts, you can:
 - Check your Fireflies account permissions and settings`;
               
               return {
-                toolResult: {
-                  content: [{
-                    type: "text",
-                    text: resultText
-                  }]
-                }
+                content: [{
+                  type: "text",
+                  text: resultText
+                }]
               };
             }
             
@@ -822,12 +818,10 @@ To retrieve more transcripts, you can:
             }
             
             return {
-              toolResult: {
-                content: [{
-                  type: "text",
-                  text: resultText
-                }]
-              }
+              content: [{
+                type: "text",
+                text: resultText
+              }]
             };
           } catch (error) {
             process.stderr.write(`Error in fireflies_get_transcript_details: ${error instanceof Error ? error.message : String(error)}\n`);
@@ -890,12 +884,10 @@ To retrieve more transcripts, you can:
             }
             
             return {
-              toolResult: {
-                content: [{
-                  type: "text",
-                  text: resultText
-                }]
-              }
+              content: [{
+                type: "text",
+                text: resultText
+              }]
             };
           } catch (error) {
             process.stderr.write(`Error in fireflies_search_transcripts: ${error instanceof Error ? error.message : String(error)}\n`);
@@ -927,12 +919,10 @@ To retrieve more transcripts, you can:
             const summary = await this.apiClient.generateTranscriptSummary(transcript_id, format);
             
             return {
-              toolResult: {
-                content: [{
-                  type: "text",
-                  text: summary
-                }]
-              }
+              content: [{
+                type: "text",
+                text: summary
+              }]
             };
           } catch (error) {
             process.stderr.write(`Error generating summary: ${error instanceof Error ? error.message : String(error)}\n`);
@@ -941,10 +931,9 @@ To retrieve more transcripts, you can:
             if (error instanceof McpError && 
                 error.message.includes('Summary not available')) {
               return {
-                toolResult: {
-                  content: [{
-                    type: "text",
-                    text: `No summary is available for this transcript (ID: ${transcript_id}). This might be because:
+                content: [{
+                  type: "text",
+                  text: `No summary is available for this transcript (ID: ${transcript_id}). This might be because:
 1. The transcript is still being processed
 2. The transcript is too short to generate a meaningful summary
 3. The summary feature is not enabled for your account
@@ -953,8 +942,7 @@ You can try:
 - Checking the transcript details to see if it has been fully processed
 - Using a different transcript ID
 - Contacting Fireflies support if you believe this is an error`
-                  }]
-                }
+                }]
               };
             }
             
