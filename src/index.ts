@@ -776,7 +776,13 @@ To retrieve more transcripts, you can:
             // Create a more readable output
             let resultText = `Title: ${transcript.title}\n`;
             resultText += `Date: ${transcript.dateString}\n`;
-            resultText += `Duration: ${Math.floor(transcript.duration / 60)}m ${Math.floor(transcript.duration % 60)}s\n`;
+            const hours = Math.floor(transcript.duration / 60);
+            const minutes = Math.floor(transcript.duration % 60);
+            if (hours > 0) {
+              resultText += `Duration: ${hours}h ${minutes}m\n`;
+            } else {
+              resultText += `Duration: ${transcript.duration}m\n`;
+            }
             
             if (transcript.participants && transcript.participants.length > 0) {
               resultText += `Participants: ${transcript.participants.join(', ')}\n`;
@@ -865,7 +871,13 @@ To retrieve more transcripts, you can:
                 resultText += `${index + 1}. ${transcript.title}\n`;
                 resultText += `   ID: ${transcript.id}\n`;
                 resultText += `   Date: ${transcript.dateString}\n`;
-                resultText += `   Duration: ${Math.floor(transcript.duration / 60)}m ${Math.floor(transcript.duration % 60)}s\n`;
+                const hours = Math.floor(transcript.duration / 60);
+                const minutes = Math.floor(transcript.duration % 60);
+                if (hours > 0) {
+                  resultText += `   Duration: ${hours}h ${minutes}m\n`;
+                } else {
+                  resultText += `   Duration: ${transcript.duration}m\n`;
+                }
                 
                 if (transcript.summary && transcript.summary.overview) {
                   resultText += `   Overview: ${transcript.summary.overview}\n`;
